@@ -9,14 +9,14 @@ interface FormData {
   edad_meses: string;
   peso_kg: string;
   talla_cm: string;
-  hemoglobina: string;
+  per_braqu_cm: string;
 }
 
 interface FormErrors {
   edad_meses?: string;
   peso_kg?: string;
   talla_cm?: string;
-  hemoglobina?: string;
+  per_braqu_cm?: string;
 }
 
 const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
@@ -24,7 +24,7 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
     edad_meses: '',
     peso_kg: '',
     talla_cm: '',
-    hemoglobina: ''
+    per_braqu_cm: ''
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -58,8 +58,8 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
       newErrors.talla_cm = 'La talla debe estar entre 0 y 120 cm';
     }
 
-    if (!formData.hemoglobina || parseFloat(formData.hemoglobina) <= 0 || parseFloat(formData.hemoglobina) > 20) {
-      newErrors.hemoglobina = 'La hemoglobina debe estar entre 0 y 20 g/dL';
+    if (!formData.per_braqu_cm || parseFloat(formData.per_braqu_cm) < 0 || parseFloat(formData.per_braqu_cm) > 30) {
+      newErrors.per_braqu_cm = 'El perímetro braquial debe estar entre 0 y 30 cm (0 si no está disponible)';
     }
 
     setErrors(newErrors);
@@ -79,7 +79,7 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
       edad_meses: parseInt(formData.edad_meses),
       peso_kg: parseFloat(formData.peso_kg),
       talla_cm: parseFloat(formData.talla_cm),
-      hemoglobina: parseFloat(formData.hemoglobina)
+      per_braqu_cm: parseFloat(formData.per_braqu_cm)
     };
 
     try {
@@ -160,23 +160,27 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="hemoglobina" className="block text-sm font-semibold text-gray-700">
-            Hemoglobina (g/dL)
+          <label htmlFor="per_braqu_cm" className="block text-sm font-semibold text-gray-700">
+            Perímetro Braquial (cm)
+            <span className="text-gray-500 text-xs ml-2">(opcional - ingresar 0 si no está disponible)</span>
           </label>
           <input
             type="number"
-            id="hemoglobina"
-            name="hemoglobina"
-            value={formData.hemoglobina}
+            id="per_braqu_cm"
+            name="per_braqu_cm"
+            value={formData.per_braqu_cm}
             onChange={handleChange}
-            placeholder="Nivel de hemoglobina"
+            placeholder="Ej: 12.5 cm (0 si no disponible)"
             step="0.1"
             min="0"
-            max="20"
+            max="30"
             className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary-500 transition-colors"
           />
-          {errors.hemoglobina && (
-            <span className="text-red-500 text-sm mt-1 block">{errors.hemoglobina}</span>
+          <p className="text-xs text-gray-500 mt-1">
+            📊 Referencia: &lt;11.5 cm = Desnutrición severa | 11.5-12.5 cm = Riesgo | &gt;12.5 cm = Normal
+          </p>
+          {errors.per_braqu_cm && (
+            <span className="text-red-500 text-sm mt-1 block">{errors.per_braqu_cm}</span>
           )}
         </div>
 
@@ -185,7 +189,7 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
           className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 text-white py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg mt-6"
           disabled={loading}
         >
-          {loading ? 'Analizando...' : 'Realizar Predicción'}
+          {loading ? 'Analizando...' : 'Evaluar Riesgo'}
         </button>
       </form>
     </div>

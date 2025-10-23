@@ -9,10 +9,10 @@ class PredictionInput(BaseModel):
     Esquema para los datos de entrada de predicción
     """
     edad_meses: int = Field(..., ge=0, le=60, description="Edad del niño en meses (0-60)")
-    peso_kg: float = Field(..., gt=0, le=30, description="Peso del niño en kilogramos")
+    peso_kg: float = Field(..., gt=0, le=50, description="Peso del niño en kilogramos")
     talla_cm: float = Field(..., gt=0, le=120, description="Talla del niño en centímetros")
-    imc: Optional[float] = Field(None, ge=0, le=30, description="Índice de masa corporal")
-    hemoglobina: float = Field(..., gt=0, le=20, description="Nivel de hemoglobina en g/dL")
+    imc: Optional[float] = Field(None, ge=0, le=120, description="Índice de masa corporal")
+    per_braqu_cm: float = Field(0, ge=0, le=30, description="Perímetro braquial en centímetros (0 si no está disponible)")
     
     @validator('imc', always=True)
     def calculate_imc(cls, v, values):
@@ -27,12 +27,12 @@ class PredictionInput(BaseModel):
         return v
     
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "edad_meses": 24,
                 "peso_kg": 12.5,
                 "talla_cm": 85.0,
-                "hemoglobina": 11.5
+                "per_braqu_cm": 13.5
             }
         }
 
@@ -46,7 +46,7 @@ class PredictionOutput(BaseModel):
     recomendaciones: list[str] = Field(..., description="Lista de recomendaciones")
     
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "categoria": "Normal",
                 "probabilidad": 0.85,

@@ -6,7 +6,7 @@ export interface PredictionInput {
   peso_kg: number;
   talla_cm: number;
   imc?: number;
-  hemoglobina: number;
+  per_braqu_cm: number;
 }
 
 export interface PredictionOutput {
