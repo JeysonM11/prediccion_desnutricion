@@ -11,7 +11,6 @@ import {
   Legend
 } from 'chart.js';
 import { PredictionOutput } from '../services/api';
-import './GraficoRiesgo.css';
 
 // Registrar componentes de Chart.js
 ChartJS.register(
@@ -78,20 +77,26 @@ const GraficoRiesgo: React.FC<GraficoRiesgoProps> = ({ resultado }) => {
   };
 
   return (
-    <div className="grafico-container">
-      <h3>Visualización de Riesgo</h3>
+    <div className="bg-white rounded-2xl p-8 shadow-xl">
+      <h3 className="text-3xl font-bold text-primary-600 mb-6 text-center">
+        Visualización de Riesgo
+      </h3>
       
-      <div className="graficos-grid">
-        <div className="grafico-item">
-          <h4>Certeza de la Predicción</h4>
-          <div className="chart-wrapper">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="text-center">
+          <h4 className="text-xl font-semibold text-gray-700 mb-4">
+            Certeza de la Predicción
+          </h4>
+          <div className="h-80 flex items-center justify-center">
             <Pie data={pieData} options={options} />
           </div>
         </div>
 
-        <div className="grafico-item">
-          <h4>Categoría Detectada</h4>
-          <div className="chart-wrapper">
+        <div className="text-center">
+          <h4 className="text-xl font-semibold text-gray-700 mb-4">
+            Categoría Detectada
+          </h4>
+          <div className="h-80 flex items-center justify-center">
             <Bar data={barData} options={options} />
           </div>
         </div>

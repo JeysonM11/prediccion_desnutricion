@@ -72,14 +72,17 @@ npm start
 ## 🔧 Tecnologías
 
 **Backend:**
+- Python 3.10+
 - FastAPI
-- Scikit-learn
+- scikit-learn, pandas, numpy
 - SQLAlchemy
 - Pydantic
+- SQLite
 
 **Frontend:**
-- React
+- React 18+
 - TypeScript
+- TailwindCSS
 - Axios
 - Chart.js
 - React Router

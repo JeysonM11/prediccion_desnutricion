@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { PredictionInput } from '../services/api';
-import './Formulario.css';
 
 interface FormularioProps {
   onPredict: (data: PredictionInput) => Promise<void>;
@@ -93,11 +92,15 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
   };
 
   return (
-    <div className="formulario-container">
-      <h2>Datos del Paciente</h2>
-      <form onSubmit={handleSubmit} className="formulario">
-        <div className="form-group">
-          <label htmlFor="edad_meses">Edad (meses)</label>
+    <div className="bg-white rounded-2xl p-8 shadow-xl">
+      <h2 className="text-3xl font-bold text-primary-600 mb-6 text-center">
+        Datos del Paciente
+      </h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-2">
+          <label htmlFor="edad_meses" className="block text-sm font-semibold text-gray-700">
+            Edad (meses)
+          </label>
           <input
             type="number"
             id="edad_meses"
@@ -107,12 +110,17 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
             placeholder="0-60 meses"
             min="0"
             max="60"
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary-500 transition-colors"
           />
-          {errors.edad_meses && <span className="error">{errors.edad_meses}</span>}
+          {errors.edad_meses && (
+            <span className="text-red-500 text-sm mt-1 block">{errors.edad_meses}</span>
+          )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="peso_kg">Peso (kg)</label>
+        <div className="space-y-2">
+          <label htmlFor="peso_kg" className="block text-sm font-semibold text-gray-700">
+            Peso (kg)
+          </label>
           <input
             type="number"
             id="peso_kg"
@@ -123,12 +131,17 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
             step="0.1"
             min="0"
             max="30"
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary-500 transition-colors"
           />
-          {errors.peso_kg && <span className="error">{errors.peso_kg}</span>}
+          {errors.peso_kg && (
+            <span className="text-red-500 text-sm mt-1 block">{errors.peso_kg}</span>
+          )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="talla_cm">Talla (cm)</label>
+        <div className="space-y-2">
+          <label htmlFor="talla_cm" className="block text-sm font-semibold text-gray-700">
+            Talla (cm)
+          </label>
           <input
             type="number"
             id="talla_cm"
@@ -139,12 +152,17 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
             step="0.1"
             min="0"
             max="120"
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary-500 transition-colors"
           />
-          {errors.talla_cm && <span className="error">{errors.talla_cm}</span>}
+          {errors.talla_cm && (
+            <span className="text-red-500 text-sm mt-1 block">{errors.talla_cm}</span>
+          )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="hemoglobina">Hemoglobina (g/dL)</label>
+        <div className="space-y-2">
+          <label htmlFor="hemoglobina" className="block text-sm font-semibold text-gray-700">
+            Hemoglobina (g/dL)
+          </label>
           <input
             type="number"
             id="hemoglobina"
@@ -155,11 +173,18 @@ const Formulario: React.FC<FormularioProps> = ({ onPredict }) => {
             step="0.1"
             min="0"
             max="20"
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary-500 transition-colors"
           />
-          {errors.hemoglobina && <span className="error">{errors.hemoglobina}</span>}
+          {errors.hemoglobina && (
+            <span className="text-red-500 text-sm mt-1 block">{errors.hemoglobina}</span>
+          )}
         </div>
 
-        <button type="submit" className="btn-submit" disabled={loading}>
+        <button 
+          type="submit" 
+          className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 text-white py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg mt-6"
+          disabled={loading}
+        >
           {loading ? 'Analizando...' : 'Realizar Predicción'}
         </button>
       </form>
